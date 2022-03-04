@@ -8,24 +8,10 @@ const StyledBox = styled.div`
   height: 100px;
   border-radius: 26px;
   background-color: rgb(45, 45, 50);
-  transition: box-shadow 0.3s ease-in-out;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-
-  &:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
-  }
 `;
 
-export const draggable = () => {
-  return (
-    <Draggable>
-      <StyledBox />
-    </Draggable>
-  );
-};
-
 storiesOf('Draggable Test', module).add('base', () => (
-  <Draggable customHeight={'1000px'}>
+  <Draggable customHeight={'1000px'} defaultPosition={{ x: 100, y: 100 }}>
     <StyledBox />
   </Draggable>
 ));
