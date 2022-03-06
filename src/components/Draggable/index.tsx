@@ -1,45 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { ReactNode } from 'react';
 import styled from 'styled-components';
-
-type Position = {
-  x: number;
-  y: number;
-};
-
-type DraggableProps = {
-  children: ReactNode;
-  customWidth?: string;
-  customHeight?: string;
-  defaultPosition: Position;
-};
-
-type StyledDraggableProps = {
-  customWidth: string;
-  customHeight: string;
-  clientX: number;
-  clientY: number;
-};
+import { DraggableProps, DragState, Position, StyledDraggableProps } from './DraggableType';
 
 const StyledDraggable = styled.div<StyledDraggableProps>`
   width: ${({ customWidth }) => customWidth};
   height: ${({ customHeight }) => customHeight};
   background-color: rgb(29, 29, 33);
+  overflow: hidden;
+  position: relative;
 
   .draggable-item {
     position: absolute;
-    display: flex;
     cursor: move;
     left: ${({ clientX }) => clientX + 'px'};
     top: ${({ clientY }) => clientY + 'px'};
   }
 `;
-
-type DragState = {
-  isDrag: boolean;
-  mouseX: number | null;
-  mouseY: number | null;
-};
 
 function Draggable({
   children,
@@ -81,6 +57,7 @@ function Draggable({
       clientX={position.x}
       clientY={position.y}
       onMouseMove={(e) => onDrag(e)}
+      onPointerLeave={onDragStop}
     >
       <div className="draggable-item" onMouseDown={(e) => onDragStart(e)} onMouseUp={onDragStop}>
         {children}
